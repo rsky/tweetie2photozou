@@ -1,0 +1,52 @@
+<?php
+/**
+ * 共通構成ファイル
+ *
+ * @package tweetie2photozou
+ */
+
+/**
+ * アプリケーションのルートディレクトリのパス
+ *
+ * @const string
+ */
+define('T2P_APP_ROOT', dirname(__DIR__));
+
+/**
+ * ドキュメントルートのパス
+ *
+ * @const string
+ */
+define('T2P_DOC_ROOT', realpath(__DIR__ . '/../../htdocs'));
+
+/**
+ * ハッシュのsalt
+ *
+ * @const string
+ */
+define('T2P_SALT', 't2p');
+
+/**
+ * trueならファイルのExif情報、falseなら受信した日を撮影日として扱う
+ *
+ * @const bool
+ */
+define('T2P_USE_EXIF', true);
+
+/**
+ * 現在のところマルチアカウントはサポートしていないので常にfalse
+ *
+ * @const bool
+ */
+define('T2P_MULTI_ACCOUNT', false);
+
+/*
+ * Local Variables:
+ * mode: php
+ * coding: utf-8
+ * tab-width: 4
+ * c-basic-offset: 4
+ * indent-tabs-mode: nil
+ * End:
+ */
+// vim: set syn=php fenc=utf-8 ai et ts=4 sw=4 sts=4 fdm=marker:

@@ -1,0 +1,46 @@
+<?php
+/**
+ * シングルユーザー用構成ファイル
+ *
+ * @package tweetie2photozou
+ */
+
+/**
+ * Twitterのユーザー名とパスワードをt2p_hash()関数にかけたハッシュ値
+ *
+ * @const string
+ */
+define('T2P_SINGLE_HASH', 
+       t2p_hash('twitter_username', 'twitter_password'));
+
+/**
+ * フォト蔵のユーザー名
+ *
+ * @const string
+ */
+define('T2P_SINGLE_USERNAME', 'photozou_username');
+
+/**
+ * フォト蔵のパスワード
+ *
+ * @const string
+ */
+define('T2P_SINGLE_PASSWORD', 'photozou_password');
+
+/**
+ * アップロードするアルバムのID
+ *
+ * @const int
+ */
+define('T2P_SINGLE_ALBUM_ID', 0);
+
+/*
+ * Local Variables:
+ * mode: php
+ * coding: utf-8
+ * tab-width: 4
+ * c-basic-offset: 4
+ * indent-tabs-mode: nil
+ * End:
+ */
+// vim: set syn=php fenc=utf-8 ai et ts=4 sw=4 sts=4 fdm=marker:

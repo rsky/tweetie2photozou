@@ -1,0 +1,19 @@
+<?php
+/**
+ * マルチユーザー用構成ファイル
+ *
+ * @package tweetie2photozou
+ */
+
+throw new Exception('multi user is not yet supported');
+
+/*
+ * Local Variables:
+ * mode: php
+ * coding: utf-8
+ * tab-width: 4
+ * c-basic-offset: 4
+ * indent-tabs-mode: nil
+ * End:
+ */
+// vim: set syn=php fenc=utf-8 ai et ts=4 sw=4 sts=4 fdm=marker:
