@@ -21,6 +21,25 @@ function t2p_get_proxy()
 }
 
 /**
+ * ロギングクラスを取得する
+ *
+ * @param void
+ * @return T2P_Logger
+ */
+function t2p_get_logger()
+{
+    static $logger = null;
+    if ($logger === null) {
+        if (T2P_DEBUG) {
+            $logger = new T2P_Logger_Debug();
+        } else {
+            $logger = new T2P_Logger_Void();
+        }
+    }
+    return $logger;
+}
+
+/**
  * Twitterのユーザー名・パスワードをハッシュする
  *
  * @param string $username Twitterのユーザー名
