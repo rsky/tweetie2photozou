@@ -24,6 +24,7 @@ if ($_SERVER['HTTP_REQUEST_METHOD'] !== 'POST') {
 if (!$valid) {
     $logger->dumpInvalidRequest();
     header('Content-Type: text/plain', true, 400);
+    return;
 }
 
 $logger->dumpValidRequest();
