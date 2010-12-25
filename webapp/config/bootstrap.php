@@ -7,7 +7,7 @@
 
 // 構成を読み込む
 require __DIR__ . '/config.php';
-require T2P_APP_ROOT　. '/lib/functions.php';
+require T2P_APP_ROOT . '/lib/functions.php';
 if (T2P_MULTI_ACCOUNT) {
 	require __DIR__ . '/config-multi.php';
 } else {
@@ -15,9 +15,9 @@ if (T2P_MULTI_ACCOUNT) {
 }
 
 // インクルードパスとオートローダを設定
-set_include_path(T2P_APP_ROOT　. '/lib' .
+set_include_path(T2P_APP_ROOT . '/lib' .
                  PATH_SEPARATOR .
-                 T2P_APP_ROOT　. '/lib/vendor');
+                 T2P_APP_ROOT . '/lib/vendor');
 spl_autoload_extensions('.php');
 spl_autoload_register();
 

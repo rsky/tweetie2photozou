@@ -15,7 +15,7 @@ define('T2P_APP_ROOT', dirname(__DIR__));
 
 /**
  * ドキュメントルートのパス
-　* 終端のスラッシュはつけない
+ * 終端のスラッシュはつけない
  *
  * @const string
  */
