@@ -7,6 +7,7 @@
 
 /**
  * アプリケーションのルートディレクトリのパス
+ * 終端のスラッシュはつけない
  *
  * @const string
  */
@@ -14,10 +15,19 @@ define('T2P_APP_ROOT', dirname(__DIR__));
 
 /**
  * ドキュメントルートのパス
+　* 終端のスラッシュはつけない
  *
  * @const string
  */
 define('T2P_DOC_ROOT', realpath(__DIR__ . '/../../htdocs'));
+
+/**
+ * ルートURI
+ * スラッシュで終わるURIであること
+ *
+ * @const string
+ */
+define('T2P_ROOT_URI', 'https://example.com/');
 
 /**
  * ハッシュのsalt

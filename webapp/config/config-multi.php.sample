@@ -5,7 +5,8 @@
  * @package tweetie2photozou
  */
 
-throw new Exception('multi user is not yet supported');
+trigger_error('multi user is not yet supported', E_USER_ERROR);
+exit(1);
 
 /*
  * Local Variables:
