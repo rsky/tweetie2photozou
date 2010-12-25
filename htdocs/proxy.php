@@ -30,7 +30,7 @@ if (!$valid) {
 $logger->dumpValidRequest();
 
 try {
-    $proxy = new t2p_get_proxy($_POST['username'], $_POST['password']);
+    $proxy = t2p_get_proxy($_POST['username'], $_POST['password']);
     $uri = $proxy->upload($_POST['media']);
     header('Content-Type: application/xml');
     echo '<mediaurl>', htmlspecialchars($uri, ENT_QUOTES), '</mediaurl>';
