@@ -50,6 +50,13 @@ define('T2P_USE_EXIF', true);
  */
 define('T2P_MULTI_ACCOUNT', false);
 
+/**
+ * デバッグモード。trueならT2P_APP_ROOT/logにPOSTされたデータとAPIレスポンスを書き出す
+ *
+ * @const bool
+ */
+define('T2P_DEBUG', false);
+
 /*
  * Local Variables:
  * mode: php

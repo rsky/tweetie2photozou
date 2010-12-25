@@ -7,6 +7,8 @@
 
 require __DIR__ . '/../webapp/config/bootstrap.php';
 
+$logger = t2p_get_logger();
+
 $valid = true;
 if ($_SERVER['HTTP_REQUEST_METHOD'] !== 'POST') {
     $valid = false;
@@ -20,15 +22,18 @@ if ($_SERVER['HTTP_REQUEST_METHOD'] !== 'POST') {
 }
 
 if (!$valid) {
+    $logger->dumpInvalidRequest();
     header('Content-Type: text/plain', true, 400);
     return;
 }
+
+$logger->dumpValidRequest();
 
 try {
     $proxy = new t2p_get_proxy($_POST['username'], $_POST['password']);
     $uri = $proxy->upload($_POST['media']);
     header('Content-Type: application/xml');
-    echo '<mediaurl>', htmlspecialchars($uri, ENT_QUATES), '</mediaurl>';
+    echo '<mediaurl>', htmlspecialchars($uri, ENT_QUOTES), '</mediaurl>';
 } catch (T2P_Exception $e) {
     header('Content-Type: text/plain', true, $e->getHttpResponseCode());
     echo $e->getMessage();
