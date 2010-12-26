@@ -52,18 +52,19 @@ abstract class T2P_Proxy
     /**
      * 写真をアップロードする
      *
-     * @param string $media 写真・動画等のパス
-     * @param string $source アップロードしたクライアント
+     * @param string $media 写真/動画のパス
+     * @param string $message 写真/動画の説明
      * @return string アップロードした写真を閲覧できるURI
      * @throws T2P_Exception
      */
-    public function upload($media)
+    public function upload($media, $message)
     {
         $date = date('Y-m-d');
         $params = array(
             'photo' => $media,
-            'photo_title' => $date,
             'album_id' => $this->albumId,
+            'photo_title' => $date,
+            'description' => $message,
         );
         if (T2P_USE_EXIF) {
             $params['date_type'] = 'exif';

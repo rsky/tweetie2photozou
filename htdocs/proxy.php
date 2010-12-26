@@ -46,7 +46,7 @@ try {
     $result = $oauth->verify();
 
     $proxy = t2p_get_proxy($result['data']);
-    $uri = $proxy->upload($media);
+    $uri = $proxy->upload($media, $_POST['message']);
     header('Content-Type: application/xml');
     echo '<mediaurl>',
          htmlspecialchars($uri, ENT_QUOTES),
