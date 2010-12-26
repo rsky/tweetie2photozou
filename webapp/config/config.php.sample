@@ -14,6 +14,22 @@
 define('T2P_APP_ROOT', dirname(__DIR__));
 
 /**
+ * ログファイルを保存するディレクトリ
+ * 終端のスラッシュはつけない
+ *
+ * @const string
+ */
+define('T2P_LOG_DIR', T2P_APP_ROOT . '/log');
+
+/**
+ * 画像を一時的に保存するディレクトリ
+ * 終端のスラッシュはつけない
+ *
+ * @const string
+ */
+define('T2P_UPLOAD_DIR', T2P_APP_ROOT . '/uploads');
+
+/**
  * ドキュメントルートのパス
  * 終端のスラッシュはつけない
  *

@@ -18,8 +18,9 @@ if (T2P_MULTI_ACCOUNT) {
 set_include_path(T2P_APP_ROOT . '/lib' .
                  PATH_SEPARATOR .
                  T2P_APP_ROOT . '/lib/vendor');
-spl_autoload_extensions('.php');
-spl_autoload_register();
+spl_autoload_register(function($className){
+    include str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+});
 
 /*
  * Local Variables:

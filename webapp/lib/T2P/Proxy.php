@@ -31,7 +31,7 @@ abstract class T2P_Proxy
     {
         $config = $this->getConfigration($username, $password);
         if (!$config) {
-            $e = T2P_Exception('authentication failed');
+            $e = new T2P_Exception('authentication failed');
             $e->setHttpResponseCode(403);
             throw $e;
         }
@@ -54,14 +54,16 @@ abstract class T2P_Proxy
     /**
      * 写真をアップロードする
      *
-     * @param string $media 写真・動画等のバイナリデータ
+     * @param string $media 写真・動画等のパス
+     * @param string $source アップロードしたクライアント
      * @return string アップロードした写真を閲覧できるURI
      * @throws T2P_Exception
      */
-    public function upload($media)
+    public function upload($media, $source)
     {
         $params = array(
             'photo' => $media,
+            'photo_title' => $source,
             'album_id' => $this->albumId,
         );
         if (T2P_USE_EXIF) {
