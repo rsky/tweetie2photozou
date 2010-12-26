@@ -23,13 +23,12 @@ abstract class T2P_Proxy
     /**
      * コンストラクタ
      *
-     * @param string $username Twitterのユーザー名
-     * @param string $password Twitterのパスワード
+     * @param array $userInfo Twitterのユーザー情報
      * @throws T2P_Exception
      */
-    public function __construct($username, $password)
+    public function __construct($userInfo)
     {
-        $config = $this->getConfigration($username, $password);
+        $config = $this->getConfiguration($userInfo);
         if (!$config) {
             $e = new T2P_Exception('authentication failed');
             $e->setHttpResponseCode(403);
@@ -41,15 +40,14 @@ abstract class T2P_Proxy
     }
 
     /**
-     * Twitterのユーザー名・パスワードからフォト蔵の設定を取得する
+     * Twitterのユーザー情報からフォト蔵の設定を取得する
      *
-     * @param string $username Twitterのユーザー名
-     * @param string $password Twitterのパスワード
+     * @param array $userInfo Twitterのユーザー情報
      * @return array {'username': 'フォト蔵のユーザー名',
      *                'password': 'フォト蔵のパスワード',
-     *                'album_id': 'アップロードするアルバム'}
+     *                'album_id': 'アップロードするアルバムのID'}
      */
-    abstract protected function getConfigration($username, $password);
+    abstract protected function getConfiguration($userInfo);
 
     /**
      * 写真をアップロードする
@@ -59,21 +57,22 @@ abstract class T2P_Proxy
      * @return string アップロードした写真を閲覧できるURI
      * @throws T2P_Exception
      */
-    public function upload($media, $source)
+    public function upload($media)
     {
+        $date = date('Y-m-d');
         $params = array(
             'photo' => $media,
-            'photo_title' => $source,
+            'photo_title' => $date,
             'album_id' => $this->albumId,
         );
         if (T2P_USE_EXIF) {
             $params['date_type'] = 'exif';
         } else {
             $params['date_type'] = 'date';
-            $date = explode('-', date('Y-m-d'));
-            $params['year']  = $date[0];
-            $params['month'] = $date[1];
-            $params['day']   = $date[2];
+            $part = explode('-', $date);
+            $params['year']  = $part[0];
+            $params['month'] = $part[1];
+            $params['day']   = $part[2];
         }
 
         $result = $this->photozou->photo_add($params);

@@ -8,16 +8,15 @@
 /**
  * プロキシクラスを取得する
  *
- * @param string $username Twitterのユーザー名
- * @param string $password Twitterのパスワード
+ * @param string $userInfo Twitterのユーザー情報
  * @return T2P_Proxy
  */
-function t2p_get_proxy($username, $password)
+function t2p_get_proxy($userInfo)
 {
     if (T2P_MULTI_ACCOUNT) {
-        return new T2P_Proxy_Multi($username, $password);
+        return new T2P_Proxy_Multi($userInfo);
     } else {
-        return new T2P_Proxy_Single($username, $password);
+        return new T2P_Proxy_Single($userInfo);
     }
 }
 
@@ -41,31 +40,22 @@ function t2p_get_logger()
 }
 
 /**
- * Twitterのユーザー名・パスワードをハッシュする
+ * アップロードされた画像をリネームする
  *
- * @param string $username Twitterのユーザー名
- * @param string $password Twitterのパスワード
- * @return string ハッシュ値
- */
-function t2p_hash($username, $password)
-{
-    return sha1(T2P_SALT . "\0{$username}\0{$password}");
-}
-
-/**
- * 画像データをファイルに保存する
- *
- * @param string $data 写真・動画等のバイナリデータ
+ * @param string $tmp_name アップロードされたファイル
  * @return string　保存したパス
  */
-function t2p_save_media($data)
+function t2p_rename_media($tmp_name)
 {
+    if (!file_exists($tmp_name) || !is_uploaded_file($tmp_name)) {
+        return false;
+    }
     list($usec, $sec) = explode(' ', microtime());
     $filename = date('Ymd', intval($sec)) . substr($usec, 1);
     $path = T2P_UPLOAD_DIR . DIRECTORY_SEPARATOR . $filename;
     $success = false;
 
-    if (strlen($data) === file_put_contents($path, $data)) {
+    if (move_uploaded_file($tmp_name, $path)) {
         $info = getimagesize($path);
         if ($info !== false) {
             $ext = image_type_to_extension($info[2]);

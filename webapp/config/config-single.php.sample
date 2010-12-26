@@ -6,12 +6,11 @@
  */
 
 /**
- * Twitterのユーザー名とパスワードをt2p_hash()関数にかけたハッシュ値
+ * TwitterのユーザーID
  *
- * @const string
+ * @const int
  */
-define('T2P_SINGLE_HASH', 
-       t2p_hash('twitter_username', 'twitter_password'));
+define('T2P_SINGLE_TWITTER_ID', 0);
 
 /**
  * フォト蔵のユーザー名

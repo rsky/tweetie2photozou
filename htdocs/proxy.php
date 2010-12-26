@@ -9,36 +9,44 @@ require __DIR__ . '/../webapp/config/bootstrap.php';
 
 $logger = t2p_get_logger();
 
-$valid = true;
-$media = null;
-if ($_SERVER['HTTP_REQUEST_METHOD'] !== 'POST') {
-    $valid = false;
+// リクエストを検証
+if ($_SERVER['REQUEST_METHOD'] === 'POST' &&
+    array_key_exists('HTTP_X_AUTH_SERVICE_PROVIDER', $_SERVER) &&
+    array_key_exists('HTTP_X_VERIFY_CREDENTIALS_AUTHORIZATION', $_SERVER) &&
+    array_key_exists('message', $_POST) &&
+    is_string($_POST['message']) &&
+    array_key_exists('media', $_FILES) &&
+    is_array($_FILES['media']) &&
+    is_string($_FILES['media']['name']) &&
+    is_string($_FILES['media']['type']) &&
+    is_string($_FILES['media']['tmp_name']) &&
+    is_int($_FILES['media']['error']) &&
+    is_int($_FILES['media']['size'])) {
+    $logger->dumpValidRequest();
 } else {
-    foreach (array('username', 'password', 'source', 'media') as $key) {
-        if (!array_key_exists($key, $_POST)) {
-            $valid = false;
-            break;
-        }
-    }
-    if ($valid) {
-        $media = t2p_save_media($_POST['media']);
-        if ($media === false) {
-            $valid = false;
-        }
-    }
-}
-
-if (!$valid) {
     $logger->dumpInvalidRequest();
     header('Content-Type: text/plain', true, 400);
+    echo "invalid request\n";
     return;
 }
 
-$logger->dumpValidRequest();
+// 画像をリネーム
+$media = t2p_rename_media($_FILES['media']['tmp_name']);
+if ($media === false) {
+    header('Content-Type: text/plain', true, 500);
+    echo "cannot rename the media\n";
+    return;
+}
 
+// 認証&ポスト
 try {
-    $proxy = t2p_get_proxy($_POST['username'], $_POST['password']);
-    $uri = $proxy->upload($media, $_POST['source']);
+    $oauth = new T2P_OAuth_Echo();
+    $oauth->setServiceProvider($_SERVER['HTTP_X_AUTH_SERVICE_PROVIDER']);
+    $oauth->setAuthorizationData($_SERVER['HTTP_X_VERIFY_CREDENTIALS_AUTHORIZATION']);
+    $result = $oauth->verify();
+
+    $proxy = t2p_get_proxy($result['data']);
+    $uri = $proxy->upload($media);
     header('Content-Type: application/xml');
     echo '<mediaurl>',
          htmlspecialchars($uri, ENT_QUOTES),

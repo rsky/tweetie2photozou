@@ -27,6 +27,30 @@ class T2P_Logger_Void extends T2P_Logger
     {
         // nothing to do
     }
+
+    /**
+     * OAuth Echo認証の結果を記録する。
+     *
+     * @param array $headers HTTPレスポンスヘッダ
+     * @param string $body HTTPレスポンスボディ
+     * @return void
+     */
+    public function dumpOAuthResponse($headers, $body)
+    {
+        // nothing to do
+    }
+
+    /**
+     * フォト蔵APIからのレスポンスを記録する。
+     *
+     * @param array $headers HTTPレスポンスヘッダ
+     * @param string $body HTTPレスポンスボディ
+     * @return void
+     */
+    public function dumpPhotozouResponse($headers, $body)
+    {
+        // nothing to do
+    }
 }
 
 /*
