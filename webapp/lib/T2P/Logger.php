@@ -60,6 +60,24 @@ abstract class T2P_Logger
      * @return void
      */
     abstract public function dumpInvalidRequest();
+
+    /**
+     * OAuth Echo認証の結果を記録する。
+     *
+     * @param array $headers HTTPレスポンスヘッダ
+     * @param string $body HTTPレスポンスボディ
+     * @return void
+     */
+    abstract public function dumpOAuthResponse($headers, $body);
+
+    /**
+     * フォト蔵APIからのレスポンスを記録する。
+     *
+     * @param array $headers HTTPレスポンスヘッダ
+     * @param string $body HTTPレスポンスボディ
+     * @return void
+     */
+    abstract public function dumpPhotozouResponse($headers, $body);
 }
 
 /*

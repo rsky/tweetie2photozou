@@ -1,2 +1,4 @@
 Twitter for iPhoneのカスタムイメージサービスとしてフォト蔵に写真をアップロードし、URIを返す
-http://developer.atebits.com/tweetie-iphone/custom-image/
+OAuth Echo: http://dev.twitter.com/pages/oauth_echo
+TwitPic API v2: http://dev.twitpic.com/docs/2/upload/
+Thanks: http://shikii.net/blog/creating-a-custom-image-service-for-twitter-for-iphone/

@@ -17,11 +17,8 @@ class T2P_Logger_Debug extends T2P_Logger
         $data = array(
             'date' => date(DATE_W3C),
             'addr' => $_SERVER['REMOTE_ADDR'],
-            'params' => array(
-                'username' => $_POST['username'],
-                'password' => $_POST['password'],
-                'source' => $_POST['source'],
-            ),
+            'message' => $_POST['message'],
+            'media' => $_FILES['media'],
         );
         $this->saveArray('debug.request.valid.log', $data);
     }
@@ -34,13 +31,57 @@ class T2P_Logger_Debug extends T2P_Logger
      */
     public function dumpInvalidRequest()
     {
+        foreach ($_SERVER as $key => $value) {
+            if (strpos($key, 'HTTP_') === 0) {
+                $headers[substr($key, 5)] = $value;
+            }
+        }
         $data = array(
             'date' => date(DATE_W3C),
             'addr' => $_SERVER['REMOTE_ADDR'],
-            'method' => $_SERVER['HTTP_REQUEST_METHOD'],
-            'params' => array_keys($_REQUEST),
+            'method' => $_SERVER['REQUEST_METHOD'],
+            'headers' => $headers,
+            'get' => array_keys($_GET),
+            'post' => array_keys($_POST),
+            'files' => array_keys($_FILES),
         );
         $this->saveArray('debug.request.invalid.log', $data);
+    }
+
+    /**
+     * OAuth Echo認証の結果を記録する。
+     *
+     * @param array $headers HTTPレスポンスヘッダ
+     * @param string $body HTTPレスポンスボディ
+     * @return void
+     */
+    public function dumpOAuthResponse($headers, $body)
+    {
+        $data = array(
+            'date' => date(DATE_W3C),
+            'addr' => $_SERVER['REMOTE_ADDR'],
+            'headers' => $headers,
+            'body' => $body,
+        );
+        $this->saveArray('debug.response.oauth.log', $data);
+    }
+
+    /**
+     * フォト蔵APIからのレスポンスを記録する。
+     *
+     * @param array $headers HTTPレスポンスヘッダ
+     * @param string $body HTTPレスポンスボディ
+     * @return void
+     */
+    public function dumpPhotozouResponse($headers, $body)
+    {
+        $data = array(
+            'date' => date(DATE_W3C),
+            'addr' => $_SERVER['REMOTE_ADDR'],
+            'headers' => $headers,
+            'body' => $body,
+        );
+        $this->saveArray('debug.response.photozou.log', $data);
     }
 }
 

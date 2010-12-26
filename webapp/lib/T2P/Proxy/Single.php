@@ -7,17 +7,16 @@
 class T2P_Proxy_Single extends T2P_Proxy
 {
     /**
-     * Twitterのユーザー名・パスワードからフォト蔵の設定を取得する
+     * Twitterのユーザー情報からフォト蔵の設定を取得する
      *
-     * @param string $username Twitterのユーザー名
-     * @param string $password Twitterのパスワード
+     * @param array $userInfo Twitterのユーザー情報
      * @return array {'username': 'フォト蔵のユーザー名',
      *                'password': 'フォト蔵のパスワード',
      *                'album_id': 'アップロードするアルバムのID'}
      */
-    protected function getConfigration($username, $password)
+    protected function getConfiguration($userInfo)
     {
-        if (T2P_SINGLE_HASH === t2p_hash($username, $password)) {
+        if (T2P_SINGLE_TWITTER_ID == $userInfo['id']) {
             return array(
                 'username' => T2P_SINGLE_USERNAME,
                 'password' => T2P_SINGLE_PASSWORD,
