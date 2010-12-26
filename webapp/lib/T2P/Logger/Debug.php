@@ -24,20 +24,6 @@ class T2P_Logger_Debug extends T2P_Logger
             ),
         );
         $this->saveArray('debug.request.valid.log', $data);
-
-        $date = date('Ymd.His');
-        $usec = substr(microtime(), 2, 6);
-        $filename = "media.{$date}.{$usec}";
-        $data = $_POST['media'];
-        if (strlen($data) === $this->saveBinary($filename, $data)) {
-            $info = getimagesize($filename);
-            if ($info !== false) {
-                $extension = image_type_to_extension($info[2]);
-                if ($extension !== false) {
-                    rename($filename, $filename . $extension);
-                }
-            }
-        }
     }
 
     /**

@@ -16,7 +16,7 @@ abstract class T2P_Logger
      */
     private function putLog($filename, $data, $flags = 0)
     {
-        $path = T2P_APP_ROOT . '/log/' . $filename;
+        $path = T2P_LOG_DIR . DIRECTORY_SEPARATOR . $filename;
         $flags |= LOCK_EX;
         return file_put_contents($path, $data, $flags);
     }
