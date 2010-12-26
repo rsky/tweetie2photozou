@@ -8,71 +8,50 @@
 class T2P_OAuth_Echo
 {
     /**
-     * 
+     * OAuthサービスプロバイダのURI
      *
      * @var string
      */
     private $serviceProvider;
 
     /**
-     * 
+     * コンストラクタ
      *
-     * @var string
-     */
-    private $authorizationData;
-
-    /**
-     * 
-     *
-     * @param string $setServiceProvider
-     * @return void
+     * @param $serviceProvider OAuthサービスプロバイダのURI
      * @throws InvalidArgumentException
      */
-    public function setServiceProvider($serviceProvider)
+    public function __construct($serviceProvider)
     {
         if (!is_string($serviceProvider) ||
-            strpos($serviceProvider, 'https://') !== 0) {
+            !preg_match('/^https?:\\/\\//', $serviceProvider)) {
             throw new InvalidArgumentException('invalid service provider');
         }
         $this->serviceProvider = $serviceProvider;
     }
 
     /**
-     * 
+     * 認証する
      *
-     * @param string $authorizationData
+     * @param string $authorizationData OAuth認証データ
      * @return void
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException, T2P_Exception
      */
-    public function setAuthorizationData($authorizationData)
+    public function verify($authorizationData)
     {
         if (!is_string($authorizationData) ||
             strpos($authorizationData, 'OAuth ') !== 0) {
             throw new InvalidArgumentException('invalid authorization data');
         }
-        $this->authorizationData = $authorizationData;
-    }
 
-    /**
-     * 
-     *
-     * @param string $authorizationData
-     * @return void
-     * @throws LogicException, T2P_Exception
-     */
-    public function verify()
-    {
-        if (!$this->serviceProvider || !$this->authorizationData) {
-            throw new LogicException('OAuth Echo verification is not ready');
-        }
-
+        // リクエスト
         $ctx = stream_context_create(array('http' => array(
-            'header' => "Authorization: {$this->authorizationData}\r\n",
+            'header' => "Authorization: {$authorizationData}\r\n",
             'user_agent' => __CLASS__,
         )));
         $json = file_get_contents($this->serviceProvider, false, $ctx);
         t2p_get_logger()->dumpOAuthResponse($http_response_header, $json);
 
+        // HTTPヘッダを解析
         $headers = array();
         $code = 0;
         foreach ($http_response_header as $header) {
@@ -84,6 +63,7 @@ class T2P_OAuth_Echo
             }
         }
 
+        // 200 OK意外なら例外をスロー
         if ($code !== 200) {
             $e = new T2P_Exception('verification failed');
             if ($code > 200) {
