@@ -17,8 +17,7 @@ abstract class T2P_Logger
     private function putLog($filename, $data, $flags = 0)
     {
         $path = T2P_LOG_DIR . DIRECTORY_SEPARATOR . $filename;
-        $flags |= LOCK_EX;
-        return file_put_contents($path, $data, $flags);
+        return file_put_contents($path, $data, $flags | LOCK_EX);
     }
 
     /**
@@ -31,7 +30,6 @@ abstract class T2P_Logger
     protected function saveArray($filename, array $data)
     {
         $data = json_encode($data) . "\n";
-        $flags = $append ? FILE_APPEND : 0;
         return $this->putLog($filename, $data, FILE_APPEND);
     }
 
