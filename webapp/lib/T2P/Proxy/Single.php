@@ -10,7 +10,7 @@ class T2P_Proxy_Single extends T2P_Proxy
      * Twitterのユーザー情報からフォト蔵の設定を取得する
      *
      * @param array $userInfo Twitterのユーザー情報
-     * @return array {'username': 'フォト蔵のユーザー名',
+     * @return array {'username': 'フォト蔵に登録しているメールアドレス',
      *                'password': 'フォト蔵のパスワード',
      *                'album_id': 'アップロードするアルバムのID'}
      */

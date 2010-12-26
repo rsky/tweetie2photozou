@@ -13,7 +13,7 @@
 define('T2P_SINGLE_TWITTER_ID', 0);
 
 /**
- * フォト蔵のユーザー名
+ * フォト蔵に登録しているメールアドレス
  *
  * @const string
  */
