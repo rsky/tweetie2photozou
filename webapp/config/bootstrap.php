@@ -6,11 +6,11 @@
  */
 
 // 構成を読み込む
-require __DIR__ . '/config.php';
+require dirname(__FILE__) . '/config.php';
 if (T2P_MULTI_ACCOUNT) {
-	require __DIR__ . '/config-multi.php';
+	require dirname(__FILE__) . '/config-multi.php';
 } else {
-	require __DIR__ . '/config-single.php';
+	require dirname(__FILE__) . '/config-single.php';
 }
 require T2P_APP_ROOT . '/lib/functions.php';
 
@@ -18,9 +18,11 @@ require T2P_APP_ROOT . '/lib/functions.php';
 set_include_path(T2P_APP_ROOT . '/lib' .
                  PATH_SEPARATOR .
                  T2P_APP_ROOT . '/lib/vendor');
-spl_autoload_register(function($className){
+function t2p_autoload($className)
+{
     include str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-});
+}
+spl_autoload_register('t2p_autoload');
 
 /*
  * Local Variables:

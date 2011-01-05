@@ -11,7 +11,7 @@
  *
  * @const string
  */
-define('T2P_APP_ROOT', dirname(__DIR__));
+define('T2P_APP_ROOT', dirname(dirname(__FILE__)));
 
 /**
  * ログファイルを保存するディレクトリ
@@ -35,7 +35,7 @@ define('T2P_UPLOAD_DIR', T2P_APP_ROOT . '/uploads');
  *
  * @const string
  */
-define('T2P_DOC_ROOT', realpath(__DIR__ . '/../../htdocs'));
+define('T2P_DOC_ROOT', realpath(dirname(__FILE__) . '/../../htdocs'));
 
 /**
  * ルートURI

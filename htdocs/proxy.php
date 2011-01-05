@@ -5,7 +5,7 @@
  * @package tweetie2photozou
  */
 
-require __DIR__ . '/../webapp/config/bootstrap.php';
+require dirname(__FILE__) . '/../webapp/config/bootstrap.php';
 
 $logger = t2p_get_logger();
 
