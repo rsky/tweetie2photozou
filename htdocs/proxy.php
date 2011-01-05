@@ -40,11 +40,8 @@ if ($media === false) {
 
 // 認証&ポスト
 try {
-    $oauth = new T2P_OAuth_Echo();
-    $oauth->setServiceProvider($_SERVER['HTTP_X_AUTH_SERVICE_PROVIDER']);
-    $oauth->setAuthorizationData($_SERVER['HTTP_X_VERIFY_CREDENTIALS_AUTHORIZATION']);
-    $result = $oauth->verify();
-
+    $oauth = new T2P_OAuth_Echo($_SERVER['HTTP_X_AUTH_SERVICE_PROVIDER']);
+    $result = $oauth->verify($_SERVER['HTTP_X_VERIFY_CREDENTIALS_AUTHORIZATION']);
     $proxy = t2p_get_proxy($result['data']);
     $uri = $proxy->upload($media, $_POST['message']);
     header('Content-Type: application/xml');
