@@ -63,7 +63,7 @@ class T2P_OAuth_Echo
             }
         }
 
-        // 200 OK意外なら例外をスロー
+        // 200 OK以外なら例外をスロー
         if ($code !== 200) {
             $e = new T2P_Exception('verification failed');
             if ($code > 200) {
