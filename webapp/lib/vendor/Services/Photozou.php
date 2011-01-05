@@ -89,6 +89,9 @@ class Services_Photozou
      */
     protected function getMime($filename)
     {
+        if (function_exists('mime_content_type')) {
+            return mime_content_type($filename);
+        }
         $ext = $this->getFileExt($filename);
         switch ($ext) {
             case 'mpeg' :
@@ -112,8 +115,14 @@ class Services_Photozou
             case 'flv' :
                 $mime = 'video/x-flv';
                 break;
-            default:
+            case 'gif':
                 $mime = 'image/gif';
+                break;
+            case 'png':
+                $mime = 'image/png';
+                break;
+            default:
+                $mime = 'image/jpeg';
         }
 
         return $mime;
