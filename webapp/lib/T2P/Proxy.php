@@ -63,9 +63,13 @@ abstract class T2P_Proxy
         $params = array(
             'photo' => $media,
             'album_id' => $this->albumId,
-            'photo_title' => $date,
-            'description' => $message,
         );
+        if (T2P_MESSAGE_AS_TITLE) {
+            $params['photo_title'] = $message;
+        } else {
+            $params['photo_title'] = $date;
+            $params['description'] = $message;
+        }
         if (T2P_USE_EXIF) {
             $params['date_type'] = 'exif';
         } else {

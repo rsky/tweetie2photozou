@@ -60,6 +60,12 @@ define('T2P_SALT', 't2p');
 define('T2P_USE_EXIF', true);
 
 /**
+ * trueならツイートを写真のタイトルに、
+ * falseなら受信した日付をタイトル、ツイートを写真の説明にする
+ */
+define('T2P_MESSAGE_AS_TITLE', true);
+
+/**
  * 現在のところマルチアカウントはサポートしていないので常にfalse
  *
  * @const bool
