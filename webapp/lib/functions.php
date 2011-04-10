@@ -43,7 +43,7 @@ function t2p_get_logger()
  * アップロードされた画像をリネームする
  *
  * @param string $tmp_name アップロードされたファイル
- * @return string　保存したパス
+ * @return string 保存したパス
  */
 function t2p_rename_media($tmp_name)
 {
